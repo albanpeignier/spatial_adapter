@@ -214,6 +214,7 @@ ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.class_eval do
   end
   
   def column_spatial_info(table_name)
+    return {} unless table_exists?(:geometry_columns)
     constr = query("SELECT * FROM geometry_columns WHERE f_table_name = '#{table_name}'")
 
     raw_geom_infos = {}
